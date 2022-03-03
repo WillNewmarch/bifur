@@ -1,0 +1,37 @@
+{
+    "name": "bifur",
+    "description": "A library providing simple use of asynchronous functionality via Web Workers.",
+    "version": "1.0.0",
+    "author": "Will Newmarch",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/WillNewmarch/bifur.git"
+    },
+    "keywords": [],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/WillNewmarch/bifur/issues"
+    },
+    "homepage": "https://github.com/WillNewmarch/bifur",
+    "devDependencies": {
+        "@babel/core": "^7.17.5",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-typescript": "^7.16.7",
+        "@types/jest": "^27.4.1",
+        "babel-jest": "^27.5.1",
+        "http-server": "^14.1.0",
+        "jest": "^27.5.1",
+        "ts-loader": "^9.2.6",
+        "webpack-cli": "^4.9.2",
+        "worker-loader": "^3.0.8"
+    },
+    "dependencies": {
+        "uuid": "^8.3.2"
+    },
+    "main": "bundle/index.js",
+    "scripts": {
+        "build": "tsc --build && webpack",
+        "start": "http-server -c-1 -p 8081",
+        "test": "jest"
+    }
+}

@@ -1,0 +1,29 @@
+import { v4 as uuid } from 'uuid';
+
+/** Class used to create a wrapper function for a Worker. */
+export default class Wrapper {
+    /**
+     * Wrap a Worker into a function returning a Promise, resolving when the Worker has responded.
+     * @param worker {Worker} The worker to be wrapped.
+     * @returns {Function} A function that returns a Promise, resolving when the Worker responds.
+     */
+    static wrap(worker: Worker): Function {
+        return (input : Array<any>) => {
+            return new Promise((resolve,reject) => {
+                const requestId: string = uuid();
+                worker.onmessage = (event) => {
+                    if(event.data.requestId === requestId) {
+                        resolve(event.data.output);
+                    }
+                };
+                worker.onmessageerror = (event) => {
+                    reject(event);
+                };
+                worker.onerror = (event) => {
+                    reject(event);
+                };
+                worker.postMessage({ requestId, input });
+            });
+        }
+    }
+}

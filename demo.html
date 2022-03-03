@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Bifur</title>
+    </head>
+    <body>
+        <script type="importmap">
+            {
+              "imports": {
+                "bifur": "./bundle/index.js"
+              }
+            }
+        </script>
+        <script type="module">
+            import "bifur";
+
+            let fibonacci = (num) => {
+                if (num <= 1) return 1;
+                return fibonacci(num - 1) + fibonacci(num - 2);
+            }
+
+            var i=0;
+            var now=new Date();
+            setInterval(_ => {
+                console.log(`${Math.round((new Date()-now) / 1000)} seconds since we started.`);
+            },1000);
+
+            setTimeout(async _ => {
+                console.log('Lets work out the 42nd number in fibonacci on the main thread!');
+                console.log(await new Promise((resolve,reject) => {
+                    console.time('main thread calculation');
+                    resolve(fibonacci(42));
+                    console.timeEnd('main thread calculation');
+                }));
+                console.log('Ok, phew, we\'re done!');
+            },4000);
+
+            setTimeout(async _ => {
+                console.log('Lets work out the 42nd number in fibonacci on a separate thread!');
+                console.time('separate thread calculation');
+                console.log(await Bifur.run((num) => {
+                    let fibonacci = (num) => {
+                        if (num <= 1) return 1;
+                        return fibonacci(num - 1) + fibonacci(num - 2);
+                    }
+                    return fibonacci(num);
+                },[42]));
+                console.timeEnd('separate thread calculation');
+                console.log('Ok, phew, we\'re done!');
+                console.log('You can see that this time we didn\'t block the main thread or any user actions.');
+            },10000);
+
+        </script>
+    </body>
+</html>
