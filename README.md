@@ -106,21 +106,24 @@ Bifur.run(func, array)
 Runs the provided function asynchronously to the main thread, passing it the arguments supplied via the array provided.
 
 #### Arguments
-array (Array): The array to process.
-[size=1] (number): The length of each chunk
 
-[method] (Function): The comparator invoked per element.
-[arguments] (Array): The arrays to inspect.
+##### [method] (Function): The method to be involved asynchronously to the main thread.
 
-Returns
-(Array): Returns the new array of chunks.
+##### [arguments] (Array): The arguments to pass to the array. Note: this array will be spread to allow the function to have multiple parameters.
 
-Example
-_.chunk(['a', 'b', 'c', 'd'], 2);
-// => [['a', 'b'], ['c', 'd']]
- 
-_.chunk(['a', 'b', 'c', 'd'], 3);
-// => [['a', 'b', 'c'], ['d']]
+##### Returns
+(any): Returns the returned value of the function provided.
+
+#### Example
+```javascript
+const result = await Bifur.run(
+    (a,b) => {
+        return a + b;
+    },
+    [2,3]
+);
+// result = 5
+```
 
 ## Heavier Examples
 
