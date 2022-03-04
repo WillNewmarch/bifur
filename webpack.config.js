@@ -13,7 +13,7 @@ module.exports = {
         library: 'Bifur',
         libraryExport: "default",
         libraryTarget: 'umd',
-        path: path.resolve( __dirname, 'dist'),
+        path: path.resolve( __dirname, 'bundle'),
         
     },
     mode: 'production',
@@ -28,5 +28,4 @@ module.exports = {
     resolve: {
         extensions: ["", ".ts", ".js"]
     }
-    // watch: true
 }

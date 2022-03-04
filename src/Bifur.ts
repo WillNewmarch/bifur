@@ -13,7 +13,6 @@ export default class Bifur {
         const worker = Builder.build(window, fnc);
         const wrapper: Function = Wrapper.wrap(worker);
         const result = wrapper(args);
-        worker.terminate();
         return result;
     }
 }

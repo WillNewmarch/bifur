@@ -14,13 +14,16 @@ export default class Wrapper {
                 worker.onmessage = (event) => {
                     if(event.data.requestId === requestId) {
                         resolve(event.data.output);
+                        worker.terminate();
                     }
                 };
                 worker.onmessageerror = (event) => {
                     reject(event);
+                    worker.terminate();
                 };
                 worker.onerror = (event) => {
                     reject(event);
+                    worker.terminate();
                 };
                 worker.postMessage({ requestId, input });
             });

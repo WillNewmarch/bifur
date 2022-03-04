@@ -14,6 +14,7 @@
     },
     "homepage": "https://github.com/WillNewmarch/bifur",
     "devDependencies": {
+        "@babel/cli": "^7.17.6",
         "@babel/core": "^7.17.5",
         "@babel/preset-env": "^7.16.11",
         "@babel/preset-typescript": "^7.16.7",
@@ -22,16 +23,20 @@
         "babel-jest": "^27.5.1",
         "http-server": "^14.1.0",
         "jest": "^27.5.1",
-        "ts-loader": "^9.2.6",
-        "webpack-cli": "^4.9.2",
-        "worker-loader": "^3.0.8"
+        "ts-jest": "^27.1.3",
+        "ts-node": "^10.6.0",
+        "webpack-cli": "^4.9.2"
     },
     "dependencies": {
         "uuid": "^8.3.2"
     },
-    "main": "dist/index.js",
+    "main": "dist/Bifur.js",
+    "exports": {
+        ".": "./dist/Bifur.js",
+        "./bundle": "./bundle/index.js"
+    },
     "scripts": {
-        "build": "webpack",
+        "build": "webpack && babel --extensions .ts ./src --out-dir ./dist",
         "start": "http-server -c-1 -p 8081",
         "test": "jest"
     }
