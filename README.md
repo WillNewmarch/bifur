@@ -13,30 +13,41 @@
     <a href="https://GitHub.com/WillNewmarch/bifur/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/WillNewmarch/bifur.svg"></a>
 </p>
 
-Bifur is a JavaScript library providing accessible and understandable multi-threading functionality that doesn’t complicate your codebase.
+Accessible and understandable multi-threading that doesn’t complicate your codebase.
 
-Bifur uses Web Workers at its heart, allowing it to provide true asynchronous functionality.
+Bifur isn’t only a kick-arse dwarf from The Hobbit. His name literally means _to divide into two branches or parts_. 
 
-## Table of contents
+Bifur allows you to run code alongside other code so as not to block the main thread (i.e. cause the browser to lock up) when performing heavy operations!
+
+There are two big hurdles when running code in parallel with web workers:
+- Web Workers are fiddly and complicated to set up initially.
+- Knowing when a particular request has returned from a Web Worker can be tricky.
+
+Bifur does the hard work for you and allows you to pass in a function and an array of arguments, and returns you a promise that will resolve when your function is complete!
+
+# Table of Contents
 
 * [Compatibility](#compatibility)
 * [Installation](#installation)
 * [Usage](#usage)
-* [Heavier Examples](#heavier-examples)
-* [Why not just use Promises?](#why-not-just-use-Promises?)
-* [Future Features](#future-features)
-* [Future Improvements](#future-improvements)
+* [Documentation](#documentation)
+    * [Methods](#methods)
+* [Additional Information](#additional-information)
+    * [Heavier Examples](#heavier-examples)
+    * [Why not just use Promises?](#why-not-just-use-Promises?)
+    * [Future Features](#future-features)
+    * [Future Improvements](#future-improvements)
 * [Contributing](#contributing)
 * [License](#license)
 
-## Compatibility
+# Compatibility
 
 Bifur is intended for browser use only and is compatible with all major browsers.
 
 Check for specific browser compatibility here:
 [https://caniuse.com/webworkers](https://caniuse.com/webworkers)
 
-## Installation
+# Installation
 
 Use the package manager [npm](https://www.npmjs.com/) to install bifur.
 
@@ -44,7 +55,7 @@ Use the package manager [npm](https://www.npmjs.com/) to install bifur.
 npm install bifur
 ```
 
-## Usage
+# Usage
 
 Firstly, import bifur into your environment
 
@@ -107,7 +118,7 @@ Bifur.run(func, array)
 
 Runs the provided function asynchronously to the main thread, passing it the arguments supplied via the array provided.
 
-## Arguments
+### Arguments
 
 [method] (Function): The method to be involved asynchronously to the main thread.
 
@@ -127,7 +138,8 @@ const result = await Bifur.run(
 // result = 5
 ```
 
-# Heavier Examples
+# Additional Information
+## Heavier Examples
 
 The following functionality, if run in browser, will lock up the UI for several seconds while computing. Paste it into the browser console to see for yourself.
 
@@ -179,10 +191,10 @@ Source: [https://stackoverflow.com/questions/20929508/web-workers-vs-promises#an
 - Worker could be mocked in more detail.
 - Tests could be run in a headless browser environment like Selenium.
 
-## Contributing
+# Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## License
+# License
 [MIT](https://choosealicense.com/licenses/mit/)
