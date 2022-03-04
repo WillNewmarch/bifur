@@ -17,6 +17,18 @@ Bifur is a JavaScript library providing accessible and understandable multi-thre
 
 Bifur uses Web Workers at its heart, allowing it to provide true asynchronous functionality.
 
+## Table of contents
+
+* [Compatibility](#compatibility)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Heavier Examples](#heavier-examples)
+* [Why not just use Promises?](#why-not-just-use-Promises?)
+* [Future Features](#future-features)
+* [Future Improvements](#future-improvements)
+* [Contributing](#contributing)
+* [License](#license)
+
 ## Compatibility
 
 Bifur is intended for browser use only and is compatible with all major browsers.
@@ -79,6 +91,36 @@ const result = await Bifur.run(
 );
 // result = 5
 ```
+
+## Documentation
+
+Bifur can be used statically for ease and simplicity.
+
+Bifur currently provides just one method, `run`.
+### Methods
+
+```javascript
+Bifur.run(func, array)
+```
+
+Runs the provided function asynchronously to the main thread, passing it the arguments supplied via the array provided.
+
+#### Arguments
+array (Array): The array to process.
+[size=1] (number): The length of each chunk
+
+[method] (Function): The comparator invoked per element.
+[arguments] (Array): The arrays to inspect.
+
+Returns
+(Array): Returns the new array of chunks.
+
+Example
+_.chunk(['a', 'b', 'c', 'd'], 2);
+// => [['a', 'b'], ['c', 'd']]
+ 
+_.chunk(['a', 'b', 'c', 'd'], 3);
+// => [['a', 'b', 'c'], ['d']]
 
 ## Heavier Examples
 
