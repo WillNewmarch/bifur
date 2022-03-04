@@ -65,6 +65,12 @@ If you're using something like `React` or `Vue` then import like so:
 import Bifur from "bifur";
 ```
 
+The library also offers an ES version for more optimised builds:
+
+```javascript
+import Bifur from "bifur/module";
+```
+
 Additionally, you can import directly into HTML files via something like `unpkg`:
 
 ```html
