@@ -49,7 +49,7 @@ Check for specific browser compatibility here:
 
 # Installation
 
-Use the package manager [npm](https://www.npmjs.com/) to install bifur.
+Use the package manager [npm](https://www.npmjs.com/) to install Bifur.
 
 ```bash
 npm install bifur
@@ -57,10 +57,20 @@ npm install bifur
 
 # Usage
 
-Firstly, import bifur into your environment
+Firstly, import Bifur into your environment...
+
+If you're using something like `React` or `Vue` then import like so:
 
 ```javascript
 import Bifur from "bifur";
+```
+
+Additionally, you can import directly into HTML files via something like `unpkg`:
+
+```html
+<script type="module">
+    import 'https://unpkg.com/bifur';
+</script>
 ```
 
 From here on you can call `Bifur.run` which accepts two arguments, a `Function` and an `Array` respectively.

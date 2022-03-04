@@ -1,7 +1,7 @@
 {
     "name": "bifur",
     "description": "A library providing simple use of asynchronous functionality via Web Workers.",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": "Will Newmarch",
     "repository": {
         "type": "git",
