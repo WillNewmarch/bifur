@@ -12,6 +12,8 @@ export default class Bifur {
     static run(fnc: Function, args: Array<any>): Function {
         const worker: Worker = Builder.build(window, fnc);
         const wrapper: Function = Wrapper.wrap(worker);
-        return wrapper(args);
+        const result = wrapper(args);
+        worker.terminate();
+        return result;
     }
 }
