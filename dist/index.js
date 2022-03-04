@@ -39,7 +39,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ Bifur)
 });
 
-;// CONCATENATED MODULE: ./dist/Worker/Builder.js
+;// CONCATENATED MODULE: ./src/Worker/Builder.ts
 /** Class used for building Worker instances. */
 class Builder {
     /**
@@ -77,7 +77,7 @@ class Builder {
         return new Blob([blobContent], { type: 'application/javascript' });
     }
 }
-//# sourceMappingURL=Builder.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
 // Unique ID creation requires a high quality random # generator. In the browser we therefore
 // require the crypto API and do not support built-in fallback to lower quality random number
@@ -164,7 +164,7 @@ function v4(options, buf, offset) {
 }
 
 /* harmony default export */ const esm_browser_v4 = (v4);
-;// CONCATENATED MODULE: ./dist/Worker/Wrapper.js
+;// CONCATENATED MODULE: ./src/Worker/Wrapper.ts
 
 /** Class used to create a wrapper function for a Worker. */
 class Wrapper {
@@ -193,8 +193,8 @@ class Wrapper {
         };
     }
 }
-//# sourceMappingURL=Wrapper.js.map
-;// CONCATENATED MODULE: ./dist/Bifur.js
+
+;// CONCATENATED MODULE: ./src/Bifur.ts
 
 
 /** Class allowing asynchronous functionality via a Worker. */
@@ -211,7 +211,7 @@ class Bifur {
         return wrapper(args);
     }
 }
-//# sourceMappingURL=Bifur.js.map
+
 __webpack_exports__ = __webpack_exports__["default"];
 /******/ 	return __webpack_exports__;
 /******/ })()

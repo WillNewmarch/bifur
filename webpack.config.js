@@ -3,7 +3,7 @@ var path = require('path');
 module.exports = {
     devtool: "source-map",
     entry: {
-		index: './dist/Bifur.js'
+		index: './src/Bifur.ts'
 	},
     optimization: {
         minimize: false
@@ -13,12 +13,20 @@ module.exports = {
         library: 'Bifur',
         libraryExport: "default",
         libraryTarget: 'umd',
-        path: path.resolve( __dirname, 'bundle'),
+        path: path.resolve( __dirname, 'dist'),
         
     },
     mode: 'production',
-    resolve: {
-        extensions: ["", ".js"]
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: 'awesome-typescript-loader'
+            }
+        ]
     },
+    resolve: {
+        extensions: ["", ".ts", ".js"]
+    }
     // watch: true
 }
