@@ -15,7 +15,7 @@
 
 Accessible and understandable multi-threading that doesn’t complicate your codebase.
 
-Bifur isn’t only a kick-arse dwarf from The Hobbit. His name literally means _to divide into two branches or parts_. 
+Not only is Bifur a kick-arse dwarf from The Hobbit. His name literally means _to divide into two branches or parts_. 
 
 Bifur allows you to run code alongside other code so as not to block the main thread (i.e. cause the browser to lock up) when performing heavy operations!
 
