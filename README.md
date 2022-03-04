@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/WillNewmarch/bifur/blob/master/LICENSE"><img alt="Github License" src="https://img.shields.io/github/license/WillNewmarch/bifur.svg"></a>
-    <a href="https://GitHub.com/WillNewmarch/bifur/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/WillNewmarch/bifur.svg"></a>
+    <a href="https://github.com/WillNewmarch/bifur/blob/master/LICENSE"><img alt="Github License" src="https://img.shields.io/github/license/WillNewmarch/bifur"></a>
+    <a href="https://GitHub.com/WillNewmarch/bifur/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/WillNewmarch/bifur"></a>
 </p>
 
 Accessible and understandable multi-threading that doesn’t complicate your codebase.
