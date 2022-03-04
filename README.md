@@ -92,12 +92,14 @@ const result = await Bifur.run(
 // result = 5
 ```
 
-## Documentation
+# Documentation
 
 Bifur can be used statically for ease and simplicity.
 
 Bifur currently provides just one method, `run`.
-### Methods
+## Methods
+
+### `run`
 
 ```javascript
 Bifur.run(func, array)
@@ -105,16 +107,16 @@ Bifur.run(func, array)
 
 Runs the provided function asynchronously to the main thread, passing it the arguments supplied via the array provided.
 
-#### Arguments
+## Arguments
 
-##### [method] (Function): The method to be involved asynchronously to the main thread.
+[method] (Function): The method to be involved asynchronously to the main thread.
 
-##### [arguments] (Array): The arguments to pass to the array. Note: this array will be spread to allow the function to have multiple parameters.
+[arguments] (Array): The arguments to pass to the array. Note: this array will be spread to allow the function to have multiple parameters.
 
-##### Returns
+### Returns
 (any): Returns the returned value of the function provided.
 
-#### Example
+### Example:
 ```javascript
 const result = await Bifur.run(
     (a,b) => {
@@ -125,12 +127,15 @@ const result = await Bifur.run(
 // result = 5
 ```
 
-## Heavier Examples
+# Heavier Examples
 
 The following functionality, if run in browser, will lock up the UI for several seconds while computing. Paste it into the browser console to see for yourself.
 
 ```javascript
-let fibonacci = (num) => { if (num <= 1) return 1; return fibonacci(num - 1) + fibonacci(num - 2); }
+let fibonacci = (num) => { 
+    if (num <= 1) return 1; 
+    return fibonacci(num - 1) + fibonacci(num - 2); 
+}
 console.time('fibonacci');
 fibonacci(42);
 console.timeEnd('fibonacci');
@@ -140,7 +145,6 @@ When running this with Bifur, the UI will continue running as usual while this c
 
 ```javascript
 const result = await Bifur.run(
-
     (num) => {
         let fibonacci = (num) => {
             if (num <= 1) return 1;
@@ -148,9 +152,7 @@ const result = await Bifur.run(
         }
         return fibonacci(num);
     },
-
     [42]
-    
 );
  
 ```
