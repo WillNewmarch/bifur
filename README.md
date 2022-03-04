@@ -13,9 +13,16 @@
     <a href="https://GitHub.com/WillNewmarch/bifur/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/WillNewmarch/bifur.svg"></a>
 </p>
 
-Bifur is a JavaScript library providing accessible and understandable multi-threading functionality that doesn’t ccomplicate your codebase.
+Bifur is a JavaScript library providing accessible and understandable multi-threading functionality that doesn’t complicate your codebase.
 
-Bifur is intended for browser use only. It also assumes that the `Window` interface and Web API `Blob` are available in your browser environment.
+Bifur uses Web Workers at its heart, allowing it to provide true asynchronous functionality.
+
+## Compatibility
+
+Bifur is intended for browser use only and is compatible with all major browsers.
+
+Check for specific browser compatibility here:
+[https://caniuse.com/webworkers](https://caniuse.com/webworkers)
 
 ## Installation
 
@@ -30,7 +37,7 @@ npm install bifur
 Firstly, import bifur into your environment
 
 ```javascript
-import "bifur";
+import Bifur from "bifur";
 ```
 
 From here on you can call `Bifur.run` which accepts two arguments, a `Function` and an `Array` respectively.
@@ -88,6 +95,7 @@ When running this with Bifur, the UI will continue running as usual while this c
 
 ```javascript
 const result = await Bifur.run(
+
     (num) => {
         let fibonacci = (num) => {
             if (num <= 1) return 1;
@@ -95,11 +103,34 @@ const result = await Bifur.run(
         }
         return fibonacci(num);
     },
+
     [42]
+    
 );
  
 ```
 _Note that pasting this into your browser will not work unless you import Bifur!_
+
+## Why not just use Promises?
+
+To quote an excellent answer from our beloved StackOverflow:
+
+```
+Deferred/Promises and Web Workers address different needs:
+
+- Deferred/promise are constructs to assign a reference to a result not yet available, and to organize code that runs once the result becomes available or a failure is returned.
+
+- Web Workers perform actual work asynchronously (using operating system threads not processes - so they are relatively light weight).
+```
+Source: [https://stackoverflow.com/questions/20929508/web-workers-vs-promises#answers-header](https://stackoverflow.com/questions/20929508/web-workers-vs-promises#answers-header)
+
+## Future Features
+- Some sort of 'Register' function to persist a Worker, allowing for multiple uses of the same function without regenerating the worker, and allowing for the Worker to hold state if required.
+
+## Future Improvements
+- Test files could be TypeScript.
+- Worker could be mocked in more detail.
+- Tests could be run in a headless browser environment like Selenium.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
