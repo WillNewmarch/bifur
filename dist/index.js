@@ -208,7 +208,9 @@ class Bifur {
     static run(fnc, args) {
         const worker = Builder.build(window, fnc);
         const wrapper = Wrapper.wrap(worker);
-        return wrapper(args);
+        const result = wrapper(args);
+        worker.terminate();
+        return result;
     }
 }
 

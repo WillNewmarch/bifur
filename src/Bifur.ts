@@ -10,7 +10,7 @@ export default class Bifur {
      * @returns {Promise} The promise that resolves once the function has completed.
      */
     static run(fnc: Function, args: Array<any>): Function {
-        const worker: Worker = Builder.build(window, fnc);
+        const worker = Builder.build(window, fnc);
         const wrapper: Function = Wrapper.wrap(worker);
         const result = wrapper(args);
         worker.terminate();
