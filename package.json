@@ -1,13 +1,19 @@
 {
     "name": "bifur",
     "description": "A library providing simple use of asynchronous functionality via Web Workers.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "author": "Will Newmarch",
     "repository": {
         "type": "git",
         "url": "https://github.com/WillNewmarch/bifur.git"
     },
-    "keywords": [],
+    "keywords": [
+        "Worker",
+        "Web Worker",
+        "Asynchronous",
+        "Multithread",
+        "multithreading"
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/WillNewmarch/bifur/issues"
@@ -31,12 +37,13 @@
         "uuid": "^8.3.2"
     },
     "main": "bundle/index.js",
+    "module": "dist/Bifur.js",
     "exports": {
         ".": "./bundle/index.js",
         "./module": "./dist/Bifur.js"
     },
     "scripts": {
-        "build": "webpack && babel --extensions .ts ./src --out-dir ./dist",
+        "build": "webpack && tsc",
         "start": "http-server -c-1 -p 8081",
         "test": "jest"
     }
