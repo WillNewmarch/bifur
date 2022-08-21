@@ -1,4 +1,4 @@
-import Wrapper from './../../src/Worker/Wrapper';
+import Wrapper from './../../dist/Worker/Wrapper';
 import Worker from './../__mocks__/Worker';
 
 describe('Worker/Wrapper', () => {

@@ -1,5 +1,6 @@
-import Builder from "./Worker/Builder";
-import Wrapper from "./Worker/Wrapper";
+import Builder from "./Worker/Builder.js";
+import PersistentWrapper from "./Worker/PersistentWrapper.js";
+import Wrapper from "./Worker/Wrapper.js";
 /** Class allowing asynchronous functionality via a Worker. */
 export default class Bifur {
     /**
@@ -10,9 +11,16 @@ export default class Bifur {
      */
     static run(fnc, args) {
         const worker = Builder.build(window, fnc);
+        console.log('worker', worker);
         const wrapper = Wrapper.wrap(worker);
         const result = wrapper(args);
         return result;
+    }
+    static generatePersistentFunction(fnc) {
+        const worker = Builder.build(window, fnc);
+        console.log('worker', worker);
+        const wrapper = new PersistentWrapper(worker);
+        return wrapper;
     }
 }
 //# sourceMappingURL=Bifur.js.map

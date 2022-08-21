@@ -1,4 +1,4 @@
-import Bifur from './../src/Bifur';
+import Bifur from './../dist/Bifur';
 
 describe('Bifur', () => {
 
