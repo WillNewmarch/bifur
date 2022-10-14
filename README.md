@@ -51,7 +51,7 @@ Check for specific browser compatibility here:
 
 Use the package manager [npm](https://www.npmjs.com/) to install Bifur.
 
-```bash
+```console
 npm install bifur
 ```
 
