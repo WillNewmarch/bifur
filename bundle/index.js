@@ -79,6 +79,10 @@ class Builder {
 }
 
 ;// CONCATENATED MODULE: ./src/Helpers/generateUUID.ts
+/**
+ * Generates a UUID.
+ * @returns {string} a uuid.
+ */
 function generateUUID() {
     let d = new Date().getTime();
     let d2 = (performance && performance.now && (performance.now() * 1000)) || 0;
@@ -104,28 +108,47 @@ class PersistentWrapper {
     constructor(worker) {
         this.requests = [];
         this.worker = worker;
-        this.setup();
-    }
-    setup() {
         this.worker.onmessage = e => this.resolveRequest(e);
         this.worker.onmessageerror = e => this.rejectRequest(e);
         this.worker.onerror = e => this.rejectRequest(e);
     }
+    /**
+     * Get the request respective of the response from the worker.
+     * @param event the MessageEvent from the worker.
+     * @returns {Request}
+     */
     getRequest(event) {
         const request = this.requests.find(r => event.data.requestId === r.requestId);
         if (request) {
+            const requestIndex = this.requests.indexOf(request);
+            this.requests.splice(requestIndex, 1);
             return request;
         }
         console.error('Could not find request:', event.data.requestId, event);
     }
+    /**
+     * Run the respective request's resolve function
+     * and pass it the data returned from the worker.
+     * @param event the MessageEvent from the worker.
+     */
     resolveRequest(event) {
         const request = this.getRequest(event);
         request.resolve(event.data.output);
     }
+    /**
+     * Run the respective request's reject function
+     * and pass it the event from the worker.
+     * @param event the MessageEvent from the worker.
+     */
     rejectRequest(event) {
         const request = this.getRequest(event);
         request.reject(event);
     }
+    /**
+     * Runs the worker function and returns a promise to await for results.
+     * @param input an array of arguments intended for the worker function.
+     * @returns {Promise} that resolves (or rejects) when the function completes.
+     */
     run(input) {
         const requestId = generateUUID();
         return new Promise((resolve, reject) => {
@@ -137,8 +160,13 @@ class PersistentWrapper {
             this.worker.postMessage({ requestId, input });
         });
     }
+    /**
+     * Teardown the PersistentWorker, terminating the worker and
+     * removing any references to the previous requests.
+     */
     teardown() {
         this.worker.terminate();
+        this.requests = [];
     }
 }
 
@@ -189,14 +217,18 @@ class Bifur {
      */
     static run(fnc, args) {
         const worker = Builder.build(window, fnc);
-        console.log('worker', worker);
         const wrapper = Wrapper.wrap(worker);
         const result = wrapper(args);
         return result;
     }
-    static generatePersistentFunction(fnc) {
+    /**
+     * Create a persistent worker wrapped in a class allowing the user to run
+     * a function asynchronously, and even store a state within the function.
+     * @param fnc {Function} The function to be run asynchronously.
+     * @returns {PersistentWrapper} An instance of the class PersistentWrapper.
+     */
+    static persist(fnc) {
         const worker = Builder.build(window, fnc);
-        console.log('worker', worker);
         const wrapper = new PersistentWrapper(worker);
         return wrapper;
     }
