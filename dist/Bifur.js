@@ -11,14 +11,18 @@ export default class Bifur {
      */
     static run(fnc, args) {
         const worker = Builder.build(window, fnc);
-        console.log('worker', worker);
         const wrapper = Wrapper.wrap(worker);
         const result = wrapper(args);
         return result;
     }
-    static generatePersistentFunction(fnc) {
+    /**
+     * Create a persistent worker wrapped in a class allowing the user to run
+     * a function asynchronously, and even store a state within the function.
+     * @param fnc {Function} The function to be run asynchronously.
+     * @returns {PersistentWrapper} An instance of the class PersistentWrapper.
+     */
+    static persist(fnc) {
         const worker = Builder.build(window, fnc);
-        console.log('worker', worker);
         const wrapper = new PersistentWrapper(worker);
         return wrapper;
     }
