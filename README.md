@@ -176,7 +176,7 @@ const thread = Bifur.persist(
         return a + b;
     }
 );
-const result = await thread.persist([2,3]);
+const result = await thread.run([2,3]);
 // result = 5
 ```
 
@@ -193,10 +193,10 @@ const thread = Bifur.persist(
         return this.state;
     }
 );
-const result = await thread.persist([2,3]);
+const result = await thread.run([2,3]);
 // result = 5
 
-const result = await thread.persist([2,3]);
+const result = await thread.run([2,3]);
 // result = 10
 ```
 
