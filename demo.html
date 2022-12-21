@@ -7,12 +7,14 @@
         <script type="importmap">
             {
               "imports": {
-                "bifur": "./dist/index.js"
+                "bifur": "./dist/Bifur.js"
               }
             }
         </script>
         <script type="module">
-            import "bifur";
+            import Bifur from "bifur";
+
+            console.log(Bifur);
 
             let fibonacci = (num) => {
                 if (num <= 1) return 1;
@@ -39,6 +41,7 @@
                 console.log('Lets work out the 42nd number in fibonacci on a separate thread!');
                 console.time('separate thread calculation');
                 console.log(await Bifur.run((num) => {
+                    console.log('running non-persistent');
                     let fibonacci = (num) => {
                         if (num <= 1) return 1;
                         return fibonacci(num - 1) + fibonacci(num - 2);
@@ -49,6 +52,42 @@
                 console.log('Ok, phew, we\'re done!');
                 console.log('You can see that this time we didn\'t block the main thread or any user actions.');
             },10000);
+
+            setTimeout(async _ => {
+                console.log('Lets work out the 42nd number in fibonacci on a persistent, seperate thread!');
+                console.time('persistent thread calculation');
+                const thread = Bifur.persist((num) => {
+                    // Generate a state if one doesn't exist.    
+                    if(!this.state) {
+                        this.state = {};
+                    }
+
+                    // If we've already worked this out and saved it in the state then return the previous result.
+                    if(!!this.state[num]) {
+                        return this.state[num];
+                    }
+
+                    let fibonacci = (num) => {
+                        if (num <= 1) return 1;
+                        return fibonacci(num - 1) + fibonacci(num - 2);
+                    }
+                    const result = fibonacci(num);
+
+                    // Persist the result in the thread's state.
+                    this.state[num] = result;
+
+                    return result;
+                });
+                console.log(await thread.run([42]));
+                console.timeEnd('persistent thread calculation');
+                console.log('Ok, phew, we\'re done!');
+                console.log('You can see that this time we didn\'t block the main thread or any user actions.');
+                console.log('Lets run it again and see if the previous result persisted and is now returned...');
+                console.time('persistent thread calculation');
+                console.log(await thread.run([42]));
+                console.timeEnd('persistent thread calculation');
+                console.log('It is! Lovely.');
+            },15000);
 
         </script>
     </body>

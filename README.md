@@ -129,7 +129,7 @@ Bifur currently provides just one method, `run`.
 ### `run`
 
 ```javascript
-Bifur.run(func, array)
+Bifur.run(func, array);
 ```
 
 Runs the provided function asynchronously to the main thread, passing it the arguments supplied via the array provided.
@@ -152,6 +152,52 @@ const result = await Bifur.run(
     [2,3]
 );
 // result = 5
+```
+
+### `persist`
+
+```javascript
+const persistedThread = Bifur.persist(func);
+```
+
+Creates a persisted worker that performs the supplied function when run. The advantage of this over simply using the `run` method is that the worker persists and isn't destroyed after one use. This helps performance, but also allows you to persist a state within the thread.
+
+### Arguments
+
+[method] (Function): The method to be involved asynchronously to the main thread.
+
+### Returns
+(any): Returns an instance of PersistedWrapper.
+
+### Example 1:
+```javascript
+const thread = Bifur.persist(
+    (a,b) => {
+        return a + b;
+    }
+);
+const result = await thread.persist([2,3]);
+// result = 5
+```
+
+### Example 2 - state persistence:
+```javascript
+const thread = Bifur.persist(
+    (a,b) => {
+        // Create a state in the thread if one doesn't exist already.
+        if(!this.state) {
+            this.state = 0;
+        }
+        const result = a + b;
+        this.state += result;
+        return this.state;
+    }
+);
+const result = await thread.persist([2,3]);
+// result = 5
+
+const result = await thread.persist([2,3]);
+// result = 10
 ```
 
 # Additional Information
@@ -182,8 +228,39 @@ const result = await Bifur.run(
     },
     [42]
 );
- 
 ```
+
+Now running the same function but using a persisted worker and holding the results in state means we can recall the result of a previously calculated function and respond far more quickly.
+
+```javascript
+const thread = Bifur.persist((num) => {
+    // Generate a state if one doesn't exist.    
+    if(!this.state) {
+        this.state = {};
+    }
+
+    // If we've already worked this out and saved it in the state then return the previous result.
+    if(!!this.state[num]) {
+        return this.state[num];
+    }
+
+    let fibonacci = (num) => {
+        if (num <= 1) return 1;
+        return fibonacci(num - 1) + fibonacci(num - 2);
+    }
+    const result = fibonacci(num);
+
+    // Persist the result in the thread's state.
+    this.state[num] = result;
+
+    return result;
+});
+
+await thread.run([42]); // Runs in a few seconds
+
+await thread.run([42]); // Runs in a few milliseconds
+```
+
 _Note that pasting this into your browser will not work unless you import Bifur!_
 
 ## Why not just use Promises?
@@ -198,9 +275,6 @@ Deferred/Promises and Web Workers address different needs:
 - Web Workers perform actual work asynchronously (using operating system threads not processes - so they are relatively light weight).
 ```
 Source: [https://stackoverflow.com/questions/20929508/web-workers-vs-promises#answers-header](https://stackoverflow.com/questions/20929508/web-workers-vs-promises#answers-header)
-
-## Future Features
-- Some sort of 'Register' function to persist a Worker, allowing for multiple uses of the same function without regenerating the worker, and allowing for the Worker to hold state if required.
 
 ## Future Improvements
 - Test files could be TypeScript.

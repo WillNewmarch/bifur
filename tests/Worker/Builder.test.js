@@ -1,4 +1,4 @@
-import Builder from './../../src/Worker/Builder';
+import Builder from './../../dist/Worker/Builder';
 
 describe('Worker/Builder', () => {
 

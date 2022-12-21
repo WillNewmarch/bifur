@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import generateUUID from '../Helpers/generateUUID.js';
 
 /** Class used to create a wrapper function for a Worker. */
 export default class Wrapper {
@@ -10,7 +10,7 @@ export default class Wrapper {
     static wrap(worker: Worker): Function {
         return (input : Array<any>) => {
             return new Promise((resolve,reject) => {
-                const requestId: string = uuid();
+                const requestId: string = generateUUID();
                 worker.onmessage = (event) => {
                     if(event.data.requestId === requestId) {
                         resolve(event.data.output);
