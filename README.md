@@ -59,16 +59,20 @@ npm install bifur
 
 Firstly, import Bifur into your environment...
 
-If you're using something like `React` or `Vue` then import like so:
-
 ```javascript
 import Bifur from "bifur";
 ```
 
-The library also offers an ES version for more optimised builds:
+If you want to import for TS...
 
 ```javascript
-import Bifur from "bifur/module";
+import Bifur from "bifur/src";
+```
+
+And if you want to import a bundled version...
+
+```javascript
+import Bifur from "bifur/bundle";
 ```
 
 Additionally, you can import directly into HTML files via something like `unpkg`:

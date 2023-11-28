@@ -1,7 +1,7 @@
 {
     "name": "bifur",
     "description": "A library providing simple use of asynchronous functionality via Web Workers.",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "author": "Will Newmarch",
     "repository": {
         "type": "git",
@@ -34,12 +34,12 @@
         "ts-node": "^10.6.0",
         "webpack-cli": "^4.9.2"
     },
-    "main": "bundle/index.js",
-    "module": "dist/Bifur.js",
-    "exports": {
-        ".": "./bundle/index.js",
-        "./module": "./dist/Bifur.js"
-    },
+    "files": [
+		"bundle",
+		"dist",
+		"src"
+	],
+	"main": "dist/Bifur.js",
     "scripts": {
         "build": "webpack && tsc",
         "start": "http-server -c-1 -p 8081",
